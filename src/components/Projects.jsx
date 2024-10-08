@@ -120,10 +120,11 @@ const Projects = ({ darkMode }) => {
     },
     {
       title: "URL Shortener",
-      description: "A Node.js web application that shortens long URLs for easier sharing.",
-      link: "https://freeshafood.vercel.app/",
+      description: "A Next.js web application that shortens long URLs for easier sharing.",
+      link: "https://url-shortner-tau-three.vercel.app/",
       techStack: [
         { icon: FaReact, name: "React" },
+        { icon: SiNextdotjs, name: "Next.js" },
         { icon: SiJavascript, name: "REST API" },
       ],
     },
