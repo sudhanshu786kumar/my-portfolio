@@ -41,40 +41,43 @@ const ProjectCard = ({ title, description, link, githubLink, techStack, darkMode
               <FaGithub size={24} />
             </motion.a>
           )}
-          {link && (
-            <motion.a
-              href={link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`${darkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-800'}`}
-              whileHover={{ scale: 1.1 }}
-            >
-              <FaExternalLinkAlt size={24} />
-            </motion.a>
-          )}
         </div>
       </div>
       <AnimatePresence>
         {isHovered && (
           <motion.div
-            className="absolute inset-0 bg-black bg-opacity-80 flex items-center justify-center"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 50 }}
+            className="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            {link ? (
-              <iframe src={link} title={title} className="w-full h-full border-none" />
-            ) : (
-              <motion.h3
-                className="text-4xl font-bold text-white text-center"
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              >
-                {title}
-              </motion.h3>
-            )}
+            <motion.div
+              className="w-full h-full flex flex-col items-center justify-center"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.1, duration: 0.3 }}
+            >
+              <iframe
+                src={link}
+                title={title}
+                className="w-full h-3/4 mb-4 rounded-lg shadow-lg"
+                frameBorder="0"
+              />
+              {link && (
+                <motion.a
+                  href={link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white hover:text-blue-400 transition-colors duration-300 flex items-center"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <FaExternalLinkAlt size={24} className="mr-2" />
+                  <span>Visit Project</span>
+                </motion.a>
+              )}
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -85,10 +88,9 @@ const ProjectCard = ({ title, description, link, githubLink, techStack, darkMode
 const Projects = ({ darkMode }) => {
   const projectsData = [
     {
-      title: "Food Order Sharing App (Shafood)",
+      title: "Food Order Sharing App",
       description: "A web application for sharing food orders together.",
       link: "https://freeshafood.vercel.app/",
-      githubLink: "https://github.com/sudhanshu786kumar/shafood",
       techStack: [
         { icon: SiNextdotjs, name: "Next.js" },
         { icon: FaReact, name: "React" },
@@ -99,7 +101,7 @@ const Projects = ({ darkMode }) => {
     {
       title: "File Zipper",
       description: "A Node.js application that allows you to zip files through the command shell.",
-      githubLink: "https://github.com/sudhanshu786kumar/file-zipper",
+      link: "https://sudhanshu786kumar.github.io/zipper/",
       techStack: [
         { icon: FaNodeJs, name: "Node.js" },
       ],
@@ -107,7 +109,7 @@ const Projects = ({ darkMode }) => {
     {
       title: "URL Shortener",
       description: "A Node.js web application that shortens long URLs for easier sharing.",
-      githubLink: "https://github.com/sudhanshu786kumar/url-shortener",
+      link: "https://freeshafood.vercel.app/",
       techStack: [
         { icon: FaReact, name: "React" },
         { icon: SiJavascript, name: "REST API" },

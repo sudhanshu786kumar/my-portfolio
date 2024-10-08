@@ -4,53 +4,37 @@ import { FaBriefcase, FaCalendar, FaBuilding, FaGraduationCap, FaCode, FaLaptopC
 
 const TimelineItem = ({ title, subtitle, date, description, icon: Icon, index, type }) => (
   <motion.div
-    className={`mb-8 flex ${index % 2 === 0 ? 'flex-row-reverse' : ''} ${type === 'education' ? 'timeline-education' : ''}`}
+    className={`mb-8 flex flex-col md:flex-row ${index % 2 === 0 ? 'md:flex-row-reverse' : ''} ${type === 'education' ? 'timeline-education' : ''}`}
     initial={{ opacity: 0, y: 50 }}
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5, delay: index * 0.2 }}
     viewport={{ once: true }}
-    style={{
-      perspective: '1000px',
-      transformStyle: 'preserve-3d'
-    }}
   >
-    <div className="flex-grow w-1/2" />
+    <div className="hidden md:block flex-grow w-1/2" />
     <div className="w-12 flex justify-center">
       <motion.div 
         className={`w-1 ${type === 'education' ? 'bg-green-500' : 'bg-blue-500'} rounded relative`}
         initial={{ height: 0 }}
         whileInView={{ height: '100%' }}
         transition={{ duration: 0.5 }}
-        style={{
-          transform: 'translateZ(20px)',
-          boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)'
-        }}
       >
         <motion.div 
-          className={`absolute w-8 h-8 ${type === 'education' ? 'bg-green-500' : 'bg-blue-500'} rounded-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center`}
+          className={`absolute w-8 h-8 ${type === 'education' ? 'bg-green-500' : 'bg-blue-500'} rounded-full top-0 left-1/2 transform -translate-x-1/2 flex items-center justify-center`}
           initial={{ scale: 0 }}
           whileInView={{ scale: 1 }}
           transition={{ type: "spring", stiffness: 300, delay: 0.2 }}
-          style={{
-            transform: 'translateZ(30px)',
-            boxShadow: '0 5px 15px rgba(0, 0, 0, 0.3)'
-          }}
         >
           <Icon className="text-white text-lg" />
         </motion.div>
       </motion.div>
     </div>
     <motion.div 
-      className={`w-1/2 bg-white p-6 rounded-lg shadow-lg ${index % 2 === 0 ? 'mr-6' : 'ml-6'}`}
-      whileHover={{ scale: 1.03, rotateY: index % 2 === 0 ? -5 : 5 }}
+      className={`w-full md:w-1/2 bg-white p-6 rounded-lg shadow-lg ${index % 2 === 0 ? 'md:mr-6' : 'md:ml-6'}`}
+      whileHover={{ scale: 1.03 }}
       transition={{ type: "spring", stiffness: 300 }}
-      style={{
-        transform: 'translateZ(40px)',
-        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.2)'
-      }}
     >
       <motion.h3 
-        className={`text-2xl font-semibold mb-2 ${type === 'education' ? 'text-green-600' : 'text-blue-600'}`}
+        className={`text-xl md:text-2xl font-semibold mb-2 ${type === 'education' ? 'text-green-600' : 'text-blue-600'}`}
         initial={{ y: 20, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.2 }}
@@ -58,7 +42,7 @@ const TimelineItem = ({ title, subtitle, date, description, icon: Icon, index, t
         {title}
       </motion.h3>
       <motion.p 
-        className="text-lg mb-2 flex items-center text-gray-700"
+        className="text-md md:text-lg mb-2 flex items-center text-gray-700"
         initial={{ y: 20, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.3 }}
@@ -67,7 +51,7 @@ const TimelineItem = ({ title, subtitle, date, description, icon: Icon, index, t
         {subtitle}
       </motion.p>
       <motion.p 
-        className="text-md mb-2 flex items-center text-gray-600"
+        className="text-sm md:text-md mb-2 flex items-center text-gray-600"
         initial={{ y: 20, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.4 }}
@@ -76,7 +60,7 @@ const TimelineItem = ({ title, subtitle, date, description, icon: Icon, index, t
         {date}
       </motion.p>
       <motion.p 
-        className="text-gray-600"
+        className="text-sm md:text-base text-gray-600"
         initial={{ y: 20, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.5 }}
