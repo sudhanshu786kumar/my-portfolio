@@ -41,12 +41,24 @@ const ProjectCard = ({ title, description, link, githubLink, techStack, darkMode
               <FaGithub size={24} />
             </motion.a>
           )}
+          {link && (
+            <motion.a
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`md:hidden ${darkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-gray-800'} flex items-center`}
+              whileHover={{ scale: 1.1 }}
+            >
+              <FaExternalLinkAlt size={20} className="mr-2" />
+              <span>Visit Project</span>
+            </motion.a>
+          )}
         </div>
       </div>
       <AnimatePresence>
         {isHovered && (
           <motion.div
-            className="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center"
+            className="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center hidden md:flex"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
