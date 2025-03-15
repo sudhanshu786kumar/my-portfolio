@@ -7,6 +7,7 @@ import Skills from './Skills';
 import Projects from './Projects';
 import Contact from './Contact';
 import Education from './Education'; // Import the Education component
+import { HeaderCardDesc } from '../constants/constant';
 
 const Home = ({ darkMode }) => {
   const containerVariants = {
@@ -106,7 +107,7 @@ const Home = ({ darkMode }) => {
           <motion.div className="mt-20" variants={itemVariants}>
             <h2 className="text-3xl font-bold mb-8 text-center text-indigo-600">About Me</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {['Full Stack Developer', 'Frontend Expert', 'Security Enthusiast'].map((title, index) => (
+              {HeaderCardDesc.map((title, index) => (
                 <motion.div 
                   key={index}
                   className={`p-6 rounded-lg shadow-lg bg-opacity-10 backdrop-filter backdrop-blur-lg ${
@@ -118,11 +119,12 @@ const Home = ({ darkMode }) => {
                     boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
                     border: '1px solid rgba(255, 255, 255, 0.18)'
                   }}
-                >
+                >  
                   <FaCode className="text-4xl mb-4 text-indigo-500" />
-                  <h3 className="text-xl font-semibold mb-2">{title}</h3>
+
+                  <h3 className="text-xl font-semibold mb-2">{title.title}</h3>
                   <p className={darkMode ? 'text-gray-300' : 'text-gray-700'}>
-                    With over 2 years of experience, I specialize in creating robust and scalable web applications using the MERN stack.
+                    {title.description}
                   </p>
                 </motion.div>
               ))}
