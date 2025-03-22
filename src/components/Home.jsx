@@ -86,7 +86,7 @@ const Home = ({ darkMode }) => {
             >
               <h1 className={`text-4xl md:text-5xl font-bold mb-4  ${darkMode ? 'text-white-600' : 'text-indigo-600'}`}>Welcome to My Portfolio</h1>
               <p className={`text-xl mb-8 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                I'm Sudhanshu Kumar, a Full Stack Developer passionate about creating modern web applications.
+                I'm Sudhanshu Kumar, a Frontend Developer passionate about creating modern web applications.
               </p>
               <Link to="projects" smooth={true} duration={500}>
                 <motion.button
