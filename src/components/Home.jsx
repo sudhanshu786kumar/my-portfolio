@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-scroll';
 import { FaRocket, FaCode} from 'react-icons/fa';
 import Experience from './Experience';
@@ -10,6 +10,22 @@ import Education from './Education'; // Import the Education component
 import { HeaderCardDesc } from '../constants/constant';
 
 const Home = ({ darkMode }) => {
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const texts = [
+    "I'm Sudhanshu Kumar",
+    "a Frontend Developer",
+    "passionate about creating  modern web applications",
+    "I'm Sudhanshu Kumar, a Frontend Developer passionate about creating modern web applications."
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTextIndex((prev) => (prev + 1) % texts.length);
+    }, 5000); // Increased to 5 seconds for better readability
+
+    return () => clearInterval(interval);
+  }, []);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: { 
@@ -36,6 +52,43 @@ const Home = ({ darkMode }) => {
         type: "spring",
         stiffness: 260,
         damping: 20
+      }
+    }
+  };
+
+  const textVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const typingVariants = {
+    hidden: { 
+      width: 0,
+      opacity: 0
+    },
+    visible: {
+      width: "100%",
+      opacity: 1,
+      transition: {
+        duration: 2,
+        ease: [0.4, 0, 0.2, 1], // Custom easing for smoother typing
+        delay: 0.2
+      }
+    },
+    exit: {
+      width: 0,
+      opacity: 0,
+      transition: {
+        duration: 1,
+        ease: [0.4, 0, 0.2, 1], // Custom easing for smoother exit
+        delay: 0.5 // Small delay before clearing
       }
     }
   };
@@ -85,9 +138,39 @@ const Home = ({ darkMode }) => {
               variants={itemVariants}
             >
               <h1 className={`text-4xl md:text-5xl font-bold mb-4  ${darkMode ? 'text-white-600' : 'text-indigo-600'}`}>Welcome to My Portfolio</h1>
-              <p className={`text-xl mb-8 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                I'm Sudhanshu Kumar, a Frontend Developer passionate about creating modern web applications.
-              </p>
+              <div className="relative overflow-hidden h-[3rem] px-2">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentTextIndex}
+                    className={`text-xl mb-8 flex items-center ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}
+                    variants={textVariants}
+                  >
+                    <motion.span
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                      variants={typingVariants}
+                      className="inline-block whitespace-nowrap"
+                    >
+                      {texts[currentTextIndex]}
+                    </motion.span>
+                    <motion.span
+                      className={`inline-block ml-2 w-[3px] h-[1.2em] align-middle ${
+                        darkMode ? 'bg-white' : 'bg-gray-900'
+                      }`}
+                      animate={{ 
+                        opacity: [1, 0, 1],
+                        scaleY: [1, 0.8, 1]
+                      }}
+                      transition={{ 
+                        duration: 0.8,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    />
+                  </motion.div>
+                </AnimatePresence>
+              </div>
               <Link to="projects" smooth={true} duration={500}>
                 <motion.button
                   className={`inline-flex items-center px-8 py-4 rounded-full text-lg font-semibold 
