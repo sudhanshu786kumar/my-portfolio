@@ -28,7 +28,7 @@ const Home = ({ darkMode }) => {
   };
 
   const photoVariants = {
-    hidden: { scale: 0, rotate: -180 },
+    hidden: { scale: 0, rotateY: 360},
     visible: { 
       scale: 1, 
       rotate: 0,
