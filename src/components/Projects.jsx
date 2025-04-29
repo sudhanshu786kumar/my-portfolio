@@ -128,6 +128,16 @@ const Projects = ({ darkMode }) => {
         { icon: SiJavascript, name: "REST API" },
       ],
     },
+    {
+      title: "Relax game ",
+      description: "A simple game to relax your mind.",
+      link: "https://relax-game.netlify.app",
+      techStack: [
+        { icon: FaReact, name: "React" },
+        { icon: SiJavascript, name: "JavaScript" },
+
+      ],
+    },
   ];
 
   return (
