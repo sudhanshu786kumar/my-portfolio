@@ -1,30 +1,69 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-scroll';
 import { FaRocket, FaCode} from 'react-icons/fa';
+import PropTypes from 'prop-types';
+import RocketAnimation from './RocketAnimation';
 import Experience from './Experience';
 import Skills from './Skills';
 import Projects from './Projects';
 import Contact from './Contact';
-import Education from './Education'; // Import the Education component
+import Education from './Education';
+import TimeBasedBackground from './TimeBasedBackground';
 import { HeaderCardDesc } from '../constants/constant';
 
 const Home = ({ darkMode }) => {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
-  const texts = [
-    "I'm Sudhanshu Kumar",
-    "a Frontend Developer",
-    "passionate about creating  modern web applications",
-    "I'm Sudhanshu Kumar, a Frontend Developer passionate about creating modern web applications."
-  ];
-
+  const [displayText, setDisplayText] = useState('');
+  
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTextIndex((prev) => (prev + 1) % texts.length);
-    }, 5000); // Increased to 5 seconds for better readability
+    const texts = [
+      "I'm Sudhanshu Kumar",
+      "a Frontend Developer",
+      "passionate about creating modern web applications",
+      "I'm Sudhanshu Kumar, a Frontend Developer passionate about creating modern web applications."
+    ];
+    let currentChar = 0;
+    let timeoutId;
 
-    return () => clearInterval(interval);
-  }, []);
+    const typeText = () => {
+      if (currentChar < texts[currentTextIndex].length) {
+        setDisplayText(texts[currentTextIndex].substring(0, currentChar + 1));
+        currentChar++;
+        
+        // Variable typing speed
+        const delay = Math.random() * 50 + 50; // Random delay between 50-100ms
+        timeoutId = setTimeout(typeText, delay);
+      } else {
+        // Wait before starting to erase
+        timeoutId = setTimeout(startErasing, 2000);
+      }
+    };
+
+    const startErasing = () => {
+      currentChar = texts[currentTextIndex].length;
+      eraseText();
+    };
+
+    const eraseText = () => {
+      if (currentChar > 0) {
+        setDisplayText(texts[currentTextIndex].substring(0, currentChar - 1));
+        currentChar--;
+        timeoutId = setTimeout(eraseText, 30); // Faster erasing speed
+      } else {
+        // Move to next text
+        setCurrentTextIndex((prevIndex) => (prevIndex + 1) % texts.length);
+        timeoutId = setTimeout(() => {
+          currentChar = 0;
+          typeText();
+        }, 500);
+      }
+    };
+
+    timeoutId = setTimeout(typeText, 200);
+
+    return () => clearTimeout(timeoutId);
+  }, [currentTextIndex]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -69,32 +108,15 @@ const Home = ({ darkMode }) => {
   };
 
   const typingVariants = {
-    hidden: { 
-      width: 0,
-      opacity: 0
-    },
-    visible: {
-      width: "100%",
-      opacity: 1,
-      transition: {
-        duration: 2,
-        ease: [0.4, 0, 0.2, 1], // Custom easing for smoother typing
-        delay: 0.2
-      }
-    },
-    exit: {
-      width: 0,
-      opacity: 0,
-      transition: {
-        duration: 1,
-        ease: [0.4, 0, 0.2, 1], // Custom easing for smoother exit
-        delay: 0.5 // Small delay before clearing
-      }
-    }
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+    exit: { opacity: 0 }
   };
 
   return (
-    <div className="animated-gradient">
+    <div className="animated-gradient relative">
+      <TimeBasedBackground darkMode={darkMode} />
+      <RocketAnimation darkMode={darkMode} />
       <motion.div
         className={`container mx-auto py-12 px-4 ${
           darkMode ? 'text-gray-100' : 'text-gray-900'
@@ -146,13 +168,13 @@ const Home = ({ darkMode }) => {
                     variants={textVariants}
                   >
                     <motion.span
-                      initial="hidden"
-                      animate="visible"
+                      initial="initial"
+                      animate="animate"
                       exit="exit"
                       variants={typingVariants}
                       className="inline-block whitespace-nowrap"
                     >
-                      {texts[currentTextIndex]}
+                      {displayText}
                     </motion.span>
                     <motion.span
                       className={`inline-block ml-2 w-[3px] h-[1.2em] align-middle ${
@@ -237,6 +259,10 @@ const Home = ({ darkMode }) => {
       </motion.div>
     </div>
   );
+};
+
+Home.propTypes = {
+  darkMode: PropTypes.bool.isRequired
 };
 
 export default Home;
