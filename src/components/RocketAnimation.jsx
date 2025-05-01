@@ -140,10 +140,11 @@ const RocketAnimation = ({ darkMode }) => {
   // Update rocket position based on mode
   useEffect(() => {
     if (darkMode) {
-      // Orbit around moon position (top-20 right-20)
-      const moonX = window.innerWidth - 100; // Approximate moon position
-      const moonY = 100;
-      const orbitRadius = 150;
+      // Orbit around moon position (responsive)
+      const isMobile = window.innerWidth < 768; // md breakpoint
+      const moonX = window.innerWidth - (isMobile ? 50 : 100);
+      const moonY = isMobile ? 50 : 100;
+      const orbitRadius = isMobile ? 80 : 150;
       
       const orbitInterval = setInterval(() => {
         setOrbitAngle(prev => (prev + 1) % 360);
@@ -209,7 +210,7 @@ const RocketAnimation = ({ darkMode }) => {
               }}
             >
               <FaRocket
-                className={`text-3xl ${darkMode ? 'text-indigo-400' : 'text-indigo-600'}`}
+                className={`text-2xl md:text-3xl ${darkMode ? 'text-indigo-400' : 'text-indigo-600'}`}
               />
               <RocketFlame darkMode={darkMode} />
             </motion.div>

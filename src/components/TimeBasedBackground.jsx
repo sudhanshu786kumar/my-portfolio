@@ -163,20 +163,20 @@ const TimeBasedBackground = ({ darkMode }) => {
       {/* Sun/Moon */}
       {timeOfDay === 'day' ? (
         <motion.div
-          className="absolute top-20 right-20 w-24 h-24"
+          className="absolute top-4 right-4 w-16 h-16 md:top-20 md:right-20 md:w-24 md:h-24"
           variants={sunVariants}
           animate={["animate", "pulse", "depth"]}
           style={{
             transformOrigin: 'center center'
           }}
         >
-          <div className="w-full h-full rounded-full bg-yellow-400 shadow-[0_0_50px_rgba(255,255,0,0.5)]" />
+          <div className="w-full h-full rounded-full bg-yellow-400 shadow-[0_0_30px_rgba(255,255,0,0.5)] md:shadow-[0_0_50px_rgba(255,255,0,0.5)]" />
           <div className="absolute inset-0 rounded-full bg-yellow-300 blur-xl opacity-50" />
           {/* Sun rays */}
           {Array.from({ length: 8 }).map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-2 h-16 bg-yellow-300 rounded-full"
+              className="absolute w-1.5 h-10 md:w-2 md:h-16 bg-yellow-300 rounded-full"
               style={{
                 left: '50%',
                 top: '50%',
@@ -197,14 +197,14 @@ const TimeBasedBackground = ({ darkMode }) => {
         </motion.div>
       ) : (
         <motion.div
-          className="absolute top-20 right-20 w-20 h-20"
+          className="absolute top-4 right-4 w-12 h-12 md:top-20 md:right-20 md:w-20 md:h-20"
           variants={moonVariants}
           animate={["animate", "glow", "depth"]}
           style={{
             transformOrigin: 'center center'
           }}
         >
-          <div className="w-full h-full rounded-full bg-gray-200 shadow-[0_0_30px_rgba(255,255,255,0.3)]" />
+          <div className="w-full h-full rounded-full bg-gray-200 shadow-[0_0_20px_rgba(255,255,255,0.3)] md:shadow-[0_0_30px_rgba(255,255,255,0.3)]" />
           <div className="absolute inset-0 rounded-full bg-gray-100 blur-xl opacity-30" />
           {/* Moon craters */}
           {Array.from({ length: 5 }).map((_, i) => (
@@ -212,8 +212,8 @@ const TimeBasedBackground = ({ darkMode }) => {
               key={i}
               className="absolute rounded-full bg-gray-300"
               style={{
-                width: `${Math.random() * 10 + 5}px`,
-                height: `${Math.random() * 10 + 5}px`,
+                width: `${Math.random() * 6 + 3}px`,
+                height: `${Math.random() * 6 + 3}px`,
                 left: `${Math.random() * 60 + 20}%`,
                 top: `${Math.random() * 60 + 20}%`,
                 opacity: 0.3
