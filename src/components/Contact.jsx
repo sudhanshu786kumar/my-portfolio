@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FaEnvelope, FaLinkedin, FaGithub, FaMapMarkerAlt } from 'react-icons/fa';
+import emailjs from 'emailjs-com';
 
 const ContactItem = ({ icon: Icon, label, value, link }) => (
   <motion.a
@@ -22,8 +23,8 @@ const ContactItem = ({ icon: Icon, label, value, link }) => (
 const Contact = ({ darkMode }) => {
   const containerVariants = {
     hidden: { opacity: 0, y: 50 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       transition: {
         duration: 0.5,
@@ -38,6 +39,17 @@ const Contact = ({ darkMode }) => {
     visible: { opacity: 1, y: 0 }
   };
 
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs.sendForm('service_d6lu327', 'template_8oukxdj', e.target, 'ouqRMhpwa5T7HGQoZ')
+      .then((result) => {
+          alert('Message sent successfully!');
+      }, (error) => {
+          alert('An error occurred, please try again later.');
+      });
+  };
+
   return (
     <motion.div
       className={`container mx-auto py-12 px-4 ${darkMode ? 'text-white' : 'text-gray-800'}`}
@@ -45,18 +57,17 @@ const Contact = ({ darkMode }) => {
       initial="hidden"
       animate="visible"
     >
-      <motion.h2 
+      <motion.h2
         className="text-4xl font-bold mb-8 text-center text-indigo-600 dark:text-indigo-400"
         variants={itemVariants}
       >
         Get in Touch
       </motion.h2>
-      <motion.div 
-        className={`max-w-4xl mx-auto ${
-          darkMode 
-            ? 'bg-gray-800 bg-opacity-50' 
+      <motion.div
+        className={`max-w-4xl mx-auto ${darkMode
+            ? 'bg-gray-800 bg-opacity-50'
             : 'bg-white bg-opacity-75'
-        } backdrop-filter backdrop-blur-lg shadow-lg rounded-lg p-8`}
+          } backdrop-filter backdrop-blur-lg shadow-lg rounded-lg p-8`}
         style={{
           boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
           border: '1px solid rgba(255, 255, 255, 0.18)'
@@ -65,54 +76,47 @@ const Contact = ({ darkMode }) => {
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
-            <motion.p 
+            <motion.p
               className="mb-6 text-lg"
               variants={itemVariants}
             >
               I'm always open to new opportunities and collaborations. Feel free to reach out through any of the following channels:
             </motion.p>
             <motion.div variants={itemVariants}>
-              <ContactItem 
-                icon={FaEnvelope} 
-                label="Email" 
-                value="sudhanshu786kumar@gmail.com" 
-                link="mailto:sudhanshu786kumar@gmail.com" 
+              <ContactItem
+                icon={FaEnvelope}
+                label="Email"
+                value="sudhanshu786kumar@gmail.com"
+                link="mailto:sudhanshu786kumar@gmail.com"
               />
-              <ContactItem 
-                icon={FaLinkedin} 
-                label="LinkedIn" 
-                value="Sudhanshu Kumar" 
-                link="https://www.linkedin.com/in/sudhanshu-kumar-enthu" 
+              <ContactItem
+                icon={FaLinkedin}
+                label="LinkedIn"
+                value="Sudhanshu Kumar"
+                link="https://www.linkedin.com/in/sudhanshu-kumar-enthu"
               />
-              <ContactItem 
-                icon={FaGithub} 
-                label="GitHub" 
-                value="sudhanshu786kumar" 
-                link="https://github.com/sudhanshu786kumar" 
+              <ContactItem
+                icon={FaGithub}
+                label="GitHub"
+                value="sudhanshu786kumar"
+                link="https://github.com/sudhanshu786kumar"
               />
-              <ContactItem 
-                icon={FaMapMarkerAlt} 
-                label="Location" 
-                value="Pune, India" 
-                link="https://www.google.com/maps/place/Pune" 
+              <ContactItem
+                icon={FaMapMarkerAlt}
+                label="Location"
+                value="Pune, India"
+                link="https://www.google.com/maps/place/Pune"
               />
             </motion.div>
           </div>
-          <motion.div 
-            className="bg-indigo-100 dark:bg-indigo-900 rounded-lg p-6"
-            variants={itemVariants}
-          >
-            <h3 className="text-2xl font-semibold mb-4">Let's Connect!</h3>
-            <p className="mb-4">Whether you have a project in mind or just want to say hello, I'd love to hear from you.</p>
-            <motion.button
-              className="bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-300 hover:bg-indigo-700"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => window.location.href = 'mailto:sudhanshu786kumar@gmail.com'}
-            >
-              Send a Message
-            </motion.button>
-          </motion.div>
+          <motion.div
+            className="bg-indigo-100 dark:bg-indigo-900 rounded-lg p-6" variants={itemVariants}>
+               <h3 className="text-2xl font-semibold mb-4">Let's Connect!</h3>
+               <p className="mb-4">Whether you have a project in mind or just want to say hello, I'd love to hear from you.</p> 
+               <form className="space-y-4" onSubmit={sendEmail}> 
+                <input type="text" name="name" placeholder="Your Name" className="w-full p-3 rounded-lg border border-gray-300" required /> 
+                <input type="email" name="email" placeholder="Your Email" className="w-full p-3 rounded-lg border border-gray-300" required /> <textarea name="message" placeholder="Your Message" className="w-full p-3 rounded-lg border border-gray-300" required></textarea> <motion.button type="submit" className="bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-300 hover:bg-indigo-700" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>Send Message</motion.button>
+                </form> </motion.div>
         </div>
       </motion.div>
     </motion.div>
