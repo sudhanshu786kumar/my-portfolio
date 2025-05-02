@@ -138,6 +138,16 @@ const Projects = ({ darkMode }) => {
 
       ],
     },
+    {
+      title: "CLoud File Manager ",
+      description: "A simple file manager to manage your files in the cloud.",
+      link: "https://sedmo-file-manager.netlify.app/",
+      techStack: [
+        { icon: FaReact, name: "React" },
+        { icon: SiJavascript, name: "JavaScript" },
+
+      ],
+    },
   ];
 
   return (
