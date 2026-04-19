@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
-import { FaRocket } from 'react-icons/fa';
 
 const TimeBasedBackground = ({ darkMode }) => {
   const [timeOfDay, setTimeOfDay] = useState('day');
